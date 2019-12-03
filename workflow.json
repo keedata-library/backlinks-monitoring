@@ -1,0 +1,152 @@
+{
+  "name": "Backlinks Monitoring",
+  "grid_columns": 4,
+  "grid_rows": 4,
+  "routes": {
+    "5db992a103ed384a65038922_finally_5db992ac03ed381524612503": {
+      "cookie": "remove",
+      "referer": "remove",
+      "urls": "",
+      "http_method": "get",
+      "new_referer": "",
+      "new_cookie": "",
+      "merge_cookie_data": false,
+      "post_data": "",
+      "merge_post_data": false,
+      "get_data": "",
+      "merge_get_data": false,
+      "custom_data": "",
+      "merge_custom_data": true
+    },
+    "5db992ac03ed381524612503_finally_5db992b903ed3811141bc8e2": {
+      "cookie": "remove",
+      "referer": "remove",
+      "urls": "",
+      "http_method": "get",
+      "new_referer": "",
+      "new_cookie": "",
+      "merge_cookie_data": false,
+      "post_data": "",
+      "merge_post_data": false,
+      "get_data": "",
+      "merge_get_data": false,
+      "custom_data": "{}",
+      "merge_custom_data": true
+    },
+    "5db992b903ed3811141bc8e2_yes_5db992ca03ed381524612504": {
+      "cookie": "remove",
+      "referer": "remove",
+      "urls": "",
+      "http_method": "get",
+      "new_referer": "",
+      "new_cookie": "",
+      "merge_cookie_data": false,
+      "post_data": "",
+      "merge_post_data": false,
+      "get_data": "",
+      "merge_get_data": false,
+      "custom_data": "",
+      "merge_custom_data": true
+    },
+    "5db992b903ed3811141bc8e2_finally_5db992ac03ed381524612503": {
+      "cookie": "default",
+      "referer": "default",
+      "urls": ["{{ $sys.data.keys()[0] }}"],
+      "http_method": "get",
+      "new_referer": null,
+      "new_cookie": null,
+      "merge_cookie_data": false,
+      "post_data": null,
+      "merge_post_data": false,
+      "get_data": null,
+      "merge_get_data": false,
+      "custom_data": "{\"001_# Recreate $sys.data without first line\":\"\",\"002_for_merge url in $sys.data.keys()\":{\"003_# Ignore first line, already executed\":\"\",\"004_if $this.url.$key != 0\":{\"005_$this.url.$value\":\"$sys.data[$this.url.$value]\"}}}",
+      "merge_custom_data": false
+    }
+  },
+  "tasks": [{
+    "type": "Input",
+    "name": "Input",
+    "workers": 1,
+    "_id": "5db992a103ed384a65038922",
+    "grid_cell": 1,
+    "updated_at": "2019-11-13T13:56:56.000Z"
+  }, {
+    "name": "Crawl",
+    "type": "Crawl",
+    "workers": 1,
+    "grid_cell": 5,
+    "proxies_mode": "default",
+    "ignore_merge_stats": false,
+    "ignore_merge_data": false,
+    "cookie_auto": false,
+    "referer_auto": true,
+    "timeout_connect": 10,
+    "timeout_request": 60,
+    "max_retry": [{
+      "code": "DEFAULT",
+      "max_retry": 1
+    }, {
+      "code": "NO-DATA-URL",
+      "max_retry": 10
+    }, {
+      "code": "NOT-SAME-DOMAIN",
+      "max_retry": 10
+    }, {
+      "code": "RETRY-URL",
+      "max_retry": 100
+    }],
+    "discover_new_links": false,
+    "discover_all_domains": false,
+    "ignore_noindex": true,
+    "ignore_nofollow": true,
+    "updated_at": "2019-11-14T09:59:14.000Z",
+    "created_at": "2019-10-30T13:39:56.000Z",
+    "_id": "5db992ac03ed381524612503",
+    "proxies": null,
+    "user_agents": null,
+    "allow_links": null,
+    "disallow_links": null,
+    "ignore_links": null,
+    "retry_links": null,
+    "headers": null,
+    "xpath": "{\"001_alert\":\"if not xpath('//a[@href=\\\"' + $sys.data.values()[0] + '\\\"]', method='len')\",\"002_source\":\"$sys.url\",\"003_link\":\"$sys.data.values()[0]\",\"004_response_code\":\"$sys.stats['RESPONSE_CODE']\"}",
+    "error_processing": true
+  }, {
+    "name": "Dispatch",
+    "type": "Dispatch",
+    "workers": 1,
+    "grid_cell": 6,
+    "updated_at": "2019-11-13T13:56:56.000Z",
+    "created_at": "2019-10-30T13:40:09.000Z",
+    "_id": "5db992b903ed3811141bc8e2",
+    "condition": "$alert"
+  }, {
+    "name": "DataVisualization",
+    "type": "DataVisualization",
+    "workers": 1,
+    "grid_cell": 2,
+    "updated_at": "2019-11-13T13:56:56.000Z",
+    "created_at": "2019-10-30T13:40:26.000Z",
+    "_id": "5db992ca03ed381524612504"
+  }, {
+    "name": "Urls",
+    "type": "Start",
+    "workers": 1,
+    "start_mode": "clean",
+    "start_urls": ["{{ $sys.data.keys()[0] }}"],
+    "http_method": "get",
+    "referer": "new",
+    "new_referer": null,
+    "cookie": "new",
+    "new_cookie": null,
+    "post_data": null,
+    "get_data": null,
+    "custom_data": "{\"001_\\\"https://[MY_SOURCE_1]\\\"\":\"\\\"https://[URL_TO_CHECK]\\\"\",\"002_\\\"https://[MY_SOURCE_2]\\\"\":\"\\\"https://[URL_TO_CHECK]\\\"\"}",
+    "updated_at": "2019-11-14T11:26:45.000Z",
+    "created_at": "2019-10-30T13:43:56.000Z",
+    "_id": "5db9939c03ed384a65038924"
+  }],
+  "updated_at": "2019-11-14T11:27:24.000Z",
+  "created_at": "2019-10-30T13:39:45.000Z"
+}
