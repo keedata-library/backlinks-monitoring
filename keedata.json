@@ -1,4 +1,19 @@
 {
   "name": "Backlinks Monitoring",
-  "description": "Health-Check of your backlinks on the Web."
+  "description": "Health-Check of your backlinks on the Web.",
+  "easyconfig": [{
+    "name": "Urls to check",
+    "type": "list_object",
+    "value": ["Source", "Url to check"],
+    "required": true,
+    "actions": [
+      {
+        "type": "tasks",
+        "_id": "5e43f04bc8e4d6159d3112b6",
+        "fields": ["custom_data"],
+        "method": "fakejson",
+        "args": ["'%key%' = '%val%'"]
+      }
+    ]
+  }]
 }
